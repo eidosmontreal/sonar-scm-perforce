@@ -38,24 +38,24 @@ import java.util.List;
 @ScannerSide
 public class PerforceConfiguration {
 
-    private static final String FALSE = "false";
-    private static final String CATEGORY_PERFORCE = "Perforce";
-    static final String PORT_PROP_KEY = "sonar.perforce.port";
-    private static final String USESSL_PROP_KEY = "sonar.perforce.useSsl";
-    private static final String USER_PROP_KEY = "sonar.perforce.username";
-    private static final String PASSWORD_PROP_KEY = "sonar.perforce.password.secured";
-    static final String CLIENT_PROP_KEY = "sonar.perforce.clientName";
-    private static final String CLIENT_IMPERSONATED_HOST_PROP_KEY = "sonar.perforce.clientImpersonatedHostname";
-    private static final String CHARSET_PROP_KEY = "sonar.perforce.charset";
-    private static final String SOCKSOTIMEOUT_PROP_KEY = "sonar.perforce.sockSoTimeout";
+  private static final String FALSE = "false";
+  private static final String CATEGORY_PERFORCE = "Perforce";
+  static final String PORT_PROP_KEY = "sonar.perforce.port";
+  private static final String USESSL_PROP_KEY = "sonar.perforce.useSsl";
+  private static final String USER_PROP_KEY = "sonar.perforce.username";
+  private static final String PASSWORD_PROP_KEY = "sonar.perforce.password.secured";
+  static final String CLIENT_PROP_KEY = "sonar.perforce.clientName";
+  private static final String CLIENT_IMPERSONATED_HOST_PROP_KEY = "sonar.perforce.clientImpersonatedHostname";
+  private static final String CHARSET_PROP_KEY = "sonar.perforce.charset";
+  private static final String SOCKSOTIMEOUT_PROP_KEY = "sonar.perforce.sockSoTimeout";
 
   private final Configuration settings;
 
   public PerforceConfiguration(Configuration settings) {
-	this.settings = settings;
-    }
+    this.settings = settings;
+  }
 
-    public static List<PropertyDefinition> getProperties() {
+  public static List<PropertyDefinition> getProperties() {
     return ImmutableList.of(
       PropertyDefinition.builder(PORT_PROP_KEY)
         .name("Perforce service port")
@@ -114,7 +114,7 @@ public class PerforceConfiguration {
         .build(),
       PropertyDefinition.builder(CHARSET_PROP_KEY)
         .name("Perforce charset")
-			.description("Character set used for translation of unicode files (P4CHARSET)")
+        .description("Character set used for translation of unicode files (P4CHARSET)")
         .type(PropertyType.STRING)
         .onQualifiers(Qualifiers.PROJECT)
         .category(CoreProperties.CATEGORY_SCM)
@@ -124,51 +124,50 @@ public class PerforceConfiguration {
       PropertyDefinition.builder(SOCKSOTIMEOUT_PROP_KEY)
         .name("Perforce socket read timeout")
         .description("Sets the socket read timeout for communicating with the Perforce service (milliseconds)")
-			.type(PropertyType.INTEGER)
-			.defaultValue(String.valueOf(RpcPropertyDefs.RPC_SOCKET_SO_TIMEOUT_DEFAULT))
+        .type(PropertyType.INTEGER)
+        .defaultValue(String.valueOf(RpcPropertyDefs.RPC_SOCKET_SO_TIMEOUT_DEFAULT))
         .onQualifiers(Qualifiers.PROJECT)
         .category(CoreProperties.CATEGORY_SCM)
         .subCategory(CATEGORY_PERFORCE)
         .index(7)
         .build());
-    }
+  }
 
-    @CheckForNull
-    public String port() {
+  @CheckForNull
+  public String port() {
     return settings.get(PORT_PROP_KEY).orElse(null);
-    }
+  }
 
-    @CheckForNull
-    public String username() {
+  @CheckForNull
+  public String username() {
     return settings.get(USER_PROP_KEY).orElse(null);
-    }
+  }
 
-    @CheckForNull
-    public String password() {
+  @CheckForNull
+  public String password() {
     return settings.get(PASSWORD_PROP_KEY).orElse(null);
-    }
+  }
 
-    @CheckForNull
-    public String charset() {
+  @CheckForNull
+  public String charset() {
     return settings.get(CHARSET_PROP_KEY).orElse(null);
-    }
+  }
 
   public Boolean useSsl() {
     return settings.getBoolean(USESSL_PROP_KEY).orElse(null);
-    }
+  }
 
-    @CheckForNull
-    public String clientName() {
+  @CheckForNull
+  public String clientName() {
     return settings.get(CLIENT_PROP_KEY).orElse(null);
-    }
+  }
 
-    @CheckForNull
-    public String clientImpersonatedHostname() {
+  @CheckForNull
+  public String clientImpersonatedHostname() {
     return settings.get(CLIENT_IMPERSONATED_HOST_PROP_KEY).orElse(null);
-    }
+  }
 
   public Integer sockSoTimeout() {
     return settings.getInt(SOCKSOTIMEOUT_PROP_KEY).orElse(null);
-    }
-
+  }
 }
