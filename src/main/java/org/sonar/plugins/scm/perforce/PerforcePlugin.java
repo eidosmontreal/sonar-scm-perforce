@@ -19,8 +19,8 @@
  */
 package org.sonar.plugins.scm.perforce;
 
-import com.google.common.collect.ImmutableList;
 import org.sonar.api.Plugin;
+import org.sonar.api.internal.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.List;

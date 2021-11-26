@@ -54,9 +54,9 @@ import java.util.List;
 import java.util.Properties;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.api.utils.MessageException;
 
 public class PerforceExecutor {

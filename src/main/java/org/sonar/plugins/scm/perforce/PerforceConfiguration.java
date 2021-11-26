@@ -19,7 +19,6 @@
  */
 package org.sonar.plugins.scm.perforce;
 
-import com.google.common.collect.ImmutableList;
 import com.perforce.p4java.impl.mapbased.rpc.RpcPropertyDefs;
 
 
@@ -27,6 +26,7 @@ import org.sonar.api.CoreProperties;
 import org.sonar.api.PropertyType;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.config.PropertyDefinition;
+import org.sonar.api.internal.google.common.collect.ImmutableList;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.api.scanner.ScannerSide;
 

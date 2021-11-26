@@ -19,8 +19,6 @@
  */
 package org.sonar.plugins.scm.perforce;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Strings;
 import com.perforce.p4java.core.IChangelist;
 import com.perforce.p4java.core.file.FileSpecOpStatus;
 import com.perforce.p4java.core.file.IFileAnnotation;
@@ -34,20 +32,6 @@ import com.perforce.p4java.impl.generic.core.file.FileSpec;
 import com.perforce.p4java.option.server.GetFileAnnotationsOptions;
 import com.perforce.p4java.option.server.GetRevisionHistoryOptions;
 import com.perforce.p4java.server.IOptionsServer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FileSystem;
@@ -55,25 +39,24 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.scm.BlameCommand;
 import org.sonar.api.batch.scm.BlameLine;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+import static org.sonar.api.internal.apachecommons.lang.StringUtils.defaultString;
 
 public class PerforceBlameCommand extends BlameCommand {
 
   private static final Logger LOG = LoggerFactory.getLogger(PerforceBlameCommand.class);
-  @VisibleForTesting
   static final int MAX_ATTEMPTS = 3;
 
   private final PerforceConfiguration config;
@@ -121,15 +104,9 @@ public class PerforceBlameCommand extends BlameCommand {
       }
 
   private Future<Void> submitTask(ExecutorService executorService, final IOptionsServer server, final InputFile inputFile, final BlameOutput output) {
-    return executorService.submit(new Callable<Void>() {
-      @Override
-      public Void call() throws P4JavaException {
-        return tryBlame(inputFile, server, output);
-      }
-    });
+    return executorService.submit(() -> tryBlame(inputFile, server, output));
   }
 
-  @VisibleForTesting
   Void tryBlame(InputFile inputFile, IOptionsServer server, BlameOutput output) throws P4JavaException {
     int attempts = 0;
     GetFileAnnotationsOptions annotationOptions = getFileAnnotationOptions();
@@ -149,7 +126,6 @@ public class PerforceBlameCommand extends BlameCommand {
   }
 
 
-  @VisibleForTesting
   void blame(InputFile inputFile, IOptionsServer server, BlameOutput output) throws P4JavaException {
     blame(inputFile, server, output, getFileAnnotationOptions());
   }
@@ -214,7 +190,7 @@ public class PerforceBlameCommand extends BlameCommand {
         // We really couldn't get any information for this changelist!
         // Unfortunately, blame information is required for every line...
         blameLine = new BlameLine()
-          .revision(Strings.nullToEmpty(config.swarm()) + String.valueOf(lowerChangelistId))
+          .revision(defaultString(config.swarm()) + lowerChangelistId)
           .date(new Date(0))
           .author("unknown");
       }
@@ -248,7 +224,7 @@ public class PerforceBlameCommand extends BlameCommand {
 
     if (changelist != null) {
       return new BlameLine()
-        .revision(Strings.nullToEmpty(config.swarm()) + String.valueOf(changelistId))
+        .revision(defaultString(config.swarm()) + changelistId)
         .date(changelist.getDate())
         .author(changelist.getUsername());
     }
@@ -260,7 +236,7 @@ public class PerforceBlameCommand extends BlameCommand {
     IFileRevisionData data = revisionDataByChangelistId.get(changelistId);
     if (data != null) {
       return new BlameLine()
-        .revision(Strings.nullToEmpty(config.swarm()) + String.valueOf(changelistId))
+        .revision(defaultString(config.swarm()) + changelistId)
         .date(data.getDate())
         .author(data.getUserName());
     }
