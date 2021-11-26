@@ -24,9 +24,18 @@ import com.perforce.p4java.core.file.FileSpecOpStatus;
 import com.perforce.p4java.core.file.IFileAnnotation;
 import com.perforce.p4java.core.file.IFileRevisionData;
 import com.perforce.p4java.core.file.IFileSpec;
+import com.perforce.p4java.exception.P4JavaException;
 import com.perforce.p4java.option.server.GetFileAnnotationsOptions;
 import com.perforce.p4java.option.server.GetRevisionHistoryOptions;
 import com.perforce.p4java.server.IOptionsServer;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.junit.Test;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.scm.BlameCommand.BlameOutput;
+import org.sonar.api.batch.scm.BlameLine;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -34,19 +43,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
-import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.scm.BlameCommand.BlameOutput;
-import org.sonar.api.batch.scm.BlameLine;
-
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
-
+import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 public class PerforceBlameCommandTest {
 
@@ -168,4 +174,47 @@ public class PerforceBlameCommandTest {
     verify(blameOutput).blameResult(inputFile, Arrays.asList(line, line));
   }
 
+  @Test
+  public void testRetryBlameThrowsAfterRetriesExhausted() throws Exception {
+    BlameOutput blameOutput = mock(BlameOutput.class);
+    IOptionsServer server = mock(IOptionsServer.class);
+    InputFile inputFile = mock(InputFile.class);
+    PerforceBlameCommand command = new PerforceBlameCommand(mock(PerforceConfiguration.class));
+
+    doThrow(new P4JavaException()).when(server).getFileAnnotations(anyList(), any(GetFileAnnotationsOptions.class));
+    try {
+      command.tryBlame(inputFile, server, blameOutput);
+      fail("Exception should have been re-thrown.");
+    } catch (P4JavaException e) {
+      verify(server, times(PerforceBlameCommand.MAX_ATTEMPTS)).getFileAnnotations(anyList(), any(GetFileAnnotationsOptions.class));
+    }
+  }
+
+  @Test
+  public void testDegradeAnnotationOptionsForRetry() throws Exception {
+    BlameOutput blameOutput = mock(BlameOutput.class);
+    IOptionsServer server = mock(IOptionsServer.class);
+    InputFile inputFile = mock(InputFile.class);
+    PerforceBlameCommand command = new PerforceBlameCommand(mock(PerforceConfiguration.class));
+    when(server.getFileAnnotations(anyList(), argThat(isFollowIntegrations(true))))
+      .thenThrow(new P4JavaException());
+    when(server.getFileAnnotations(anyList(), argThat(isFollowIntegrations(false))))
+      .thenReturn(Collections.<IFileAnnotation>emptyList());
+    command.tryBlame(inputFile, server, blameOutput);
+  }
+
+  private Matcher<GetFileAnnotationsOptions> isFollowIntegrations(final boolean follow) {
+    return new BaseMatcher<GetFileAnnotationsOptions>() {
+      @Override
+      public boolean matches(Object o) {
+        return o instanceof GetFileAnnotationsOptions
+            && ((GetFileAnnotationsOptions) o).isFollowAllIntegrations() == follow;
+      }
+
+      @Override
+      public void describeTo(Description description) {
+        description.appendText("matches follow integration annotation option");
+      }
+    };
+  }
 }
