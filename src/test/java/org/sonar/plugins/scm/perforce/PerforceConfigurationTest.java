@@ -31,20 +31,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PerforceConfigurationTest {
 
-    @Test
-    public void checkDefaultValues() {
+  @Test
+  public void checkDefaultValues() {
     MapSettings settings = new MapSettings(new PropertyDefinitions(PerforceConfiguration.getProperties()));
 
 
     ConfigurationBridge bridge = new ConfigurationBridge(settings);
     PerforceConfiguration config = new PerforceConfiguration(bridge);
-	assertThat(config.charset()).isNull();
-	assertThat(config.clientName()).isNull();
-	assertThat(config.clientImpersonatedHostname()).isNull();
-	assertThat(config.port()).isNull();
-	assertThat(config.username()).isNull();
-	assertThat(config.password()).isNull();
-	assertThat(config.useSsl()).isFalse();
-	assertThat(config.sockSoTimeout()).isEqualTo(RpcPropertyDefs.RPC_SOCKET_SO_TIMEOUT_DEFAULT);
-    }
+    assertThat(config.charset()).isNull();
+    assertThat(config.clientName()).isNull();
+    assertThat(config.clientImpersonatedHostname()).isNull();
+    assertThat(config.port()).isNull();
+    assertThat(config.username()).isNull();
+    assertThat(config.password()).isNull();
+    assertThat(config.useSsl()).isFalse();
+    assertThat(config.sockSoTimeout()).isEqualTo(RpcPropertyDefs.RPC_SOCKET_SO_TIMEOUT_DEFAULT);
+    assertThat(config.swarm()).isNull();
+  }
 }
