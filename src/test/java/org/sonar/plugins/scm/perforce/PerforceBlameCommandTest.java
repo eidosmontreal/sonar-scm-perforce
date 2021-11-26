@@ -19,14 +19,14 @@
  */
 package org.sonar.plugins.scm.perforce;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.anyList;
-
+import com.perforce.p4java.core.IChangelist;
+import com.perforce.p4java.core.file.FileSpecOpStatus;
+import com.perforce.p4java.core.file.IFileAnnotation;
+import com.perforce.p4java.core.file.IFileRevisionData;
+import com.perforce.p4java.core.file.IFileSpec;
+import com.perforce.p4java.option.server.GetFileAnnotationsOptions;
+import com.perforce.p4java.option.server.GetRevisionHistoryOptions;
+import com.perforce.p4java.server.IOptionsServer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -39,14 +39,14 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.scm.BlameCommand.BlameOutput;
 import org.sonar.api.batch.scm.BlameLine;
 
-import com.perforce.p4java.core.IChangelist;
-import com.perforce.p4java.core.file.FileSpecOpStatus;
-import com.perforce.p4java.core.file.IFileAnnotation;
-import com.perforce.p4java.core.file.IFileRevisionData;
-import com.perforce.p4java.core.file.IFileSpec;
-import com.perforce.p4java.option.server.GetFileAnnotationsOptions;
-import com.perforce.p4java.option.server.GetRevisionHistoryOptions;
-import com.perforce.p4java.server.IOptionsServer;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
+
 
 public class PerforceBlameCommandTest {
 
@@ -58,17 +58,18 @@ public class PerforceBlameCommandTest {
 
       IFileAnnotation annotation = mock(IFileAnnotation.class);
       when(annotation.getDepotPath()).thenReturn(null);
-      when(server.getFileAnnotations((List<IFileSpec>)(List<?>) anyList(), any(GetFileAnnotationsOptions.class))).thenReturn(Collections.singletonList(annotation));
+
+    when(server.getFileAnnotations(anyList(), any(GetFileAnnotationsOptions.class))).thenReturn(Collections.singletonList(annotation));
 
       command.blame(mock(InputFile.class), server, blameOutput);
 
-      verifyNoInteractions(blameOutput);
+    verifyNoInteractions(blameOutput);
     }
 
   @Test
   public void testBlameSubmittedFile() throws Exception {
     BlameOutput blameOutput = mock(BlameOutput.class);
-    
+
     IOptionsServer server = mock(IOptionsServer.class);
     PerforceBlameCommand command = new PerforceBlameCommand(mock(PerforceConfiguration.class));
 
@@ -99,7 +100,7 @@ public class PerforceBlameCommandTest {
     when(line5ChangeList4.getDepotPath()).thenReturn("foo/bar/src/Foo.java");
     when(line5ChangeList4.getLower()).thenReturn(4);
 
-    Map<IFileSpec, List<IFileRevisionData>> result = new HashMap<IFileSpec, List<IFileRevisionData>>();
+    Map<IFileSpec, List<IFileRevisionData>> result = new HashMap<>();
     IFileSpec fileSpecResult = mock(IFileSpec.class);
     when(fileSpecResult.getOpStatus()).thenReturn(FileSpecOpStatus.VALID);
     IFileRevisionData revision3 = mock(IFileRevisionData.class);
@@ -109,9 +110,9 @@ public class PerforceBlameCommandTest {
     when(revision3.getUserName()).thenReturn("jhenry");
     result.put(fileSpecResult, Collections.singletonList(revision3));
     
-    //(List<IFileSpec>)(List<?>) anyList()
-    when(server.getRevisionHistory((List<IFileSpec>)(List<?>) anyList(), any(GetRevisionHistoryOptions.class))).thenReturn(result);
-    when(server.getFileAnnotations((List<IFileSpec>)(List<?>) anyList(), any(GetFileAnnotationsOptions.class)))
+    when(server.getRevisionHistory(anyList(), any(GetRevisionHistoryOptions.class))).thenReturn(result);
+    when(server.getFileAnnotations(anyList(), any(GetFileAnnotationsOptions.class)))
+
       .thenReturn(Arrays.asList(line1ChangeList3, line2ChangeList3, line3ChangeList4, line4ChangeList5, line5ChangeList4));
 
     IChangelist changelist = mock(IChangelist.class);
@@ -145,7 +146,7 @@ public class PerforceBlameCommandTest {
     when(annotation.getDepotPath()).thenReturn("foo/bar/src/Foo.java");
     when(annotation.getLower()).thenReturn(3);
 
-    when(server.getFileAnnotations((List<IFileSpec>)(List<?>) anyList(), any(GetFileAnnotationsOptions.class))).thenReturn(Collections.singletonList(annotation));
+    when(server.getFileAnnotations(anyList(), any(GetFileAnnotationsOptions.class))).thenReturn(Collections.singletonList(annotation));
 
     IChangelist changelist = mock(IChangelist.class);
     Date date = new Date();
@@ -158,7 +159,7 @@ public class PerforceBlameCommandTest {
     command.blame(inputFile, server, blameOutput);
 
     BlameLine line = new BlameLine().revision("3").date(date).author("jhenry");
-   
+
     verify(blameOutput).blameResult(inputFile, Arrays.asList(line, line));
   }
 

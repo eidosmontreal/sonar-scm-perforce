@@ -19,22 +19,25 @@
  */
 package org.sonar.plugins.scm.perforce;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.perforce.p4java.impl.mapbased.rpc.RpcPropertyDefs;
 
 import org.junit.Test;
 import org.sonar.api.config.PropertyDefinitions;
 import org.sonar.api.config.internal.ConfigurationBridge;
 import org.sonar.api.config.internal.MapSettings;
 
-import com.perforce.p4java.impl.mapbased.rpc.RpcPropertyDefs;
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 public class PerforceConfigurationTest {
 
     @Test
     public void checkDefaultValues() {
-	MapSettings settings = new MapSettings(new PropertyDefinitions(PerforceConfiguration.getProperties()));
-	ConfigurationBridge bridge = new ConfigurationBridge(settings);
+    MapSettings settings = new MapSettings(new PropertyDefinitions(PerforceConfiguration.getProperties()));
 
-	PerforceConfiguration config = new PerforceConfiguration(bridge);
+
+    ConfigurationBridge bridge = new ConfigurationBridge(settings);
+    PerforceConfiguration config = new PerforceConfiguration(bridge);
 	assertThat(config.charset()).isNull();
 	assertThat(config.clientName()).isNull();
 	assertThat(config.clientImpersonatedHostname()).isNull();

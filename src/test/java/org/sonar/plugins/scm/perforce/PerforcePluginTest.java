@@ -21,7 +21,7 @@
 package org.sonar.plugins.scm.perforce;
 
 import org.junit.Test;
-import org.hamcrest.SelfDescribing;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
