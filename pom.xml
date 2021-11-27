@@ -9,7 +9,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.sonarqube>9.2.1.49989</version.sonarqube>
+		<version.sonarqube>7.9.6</version.sonarqube>
 		<!-- Nov 26, 2021 -->
 	</properties>
 
@@ -57,12 +57,6 @@
 		<dependency>
 			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-plugin-api</artifactId>
-			<version>${version.sonarqube}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.sonarsource.sonarqube</groupId>
-			<artifactId>sonar-plugin-api-impl</artifactId>
 			<version>${version.sonarqube}</version>
 			<scope>provided</scope>
 		</dependency>
