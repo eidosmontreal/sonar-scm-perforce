@@ -1,33 +1,4 @@
 language: java
-install: true
-
-cache:
-  directories:
-    - "$HOME/.m2"
-
-jobs:
-  include:
-    # 1.1 Tests
-    - stage: test
-      jdk: openjdk11
-      script: mvn verify
-      env: VERIFY=true
-
-    # 1.2 Coverage
-    - stage: test
-      jdk: openjdk11
-      script: mvn -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID org.jacoco:jacoco-maven-plugin:0.8.7:prepare-agent verify org.jacoco:jacoco-maven-plugin:0.8.7:report coveralls:report
-      env: COVERAGE=true
-
-    # 1.3 Javadoc
-    - jdk: openjdk11
-      env: JAVADOC=true
-      script:
-        - mvn javadoc:jar
-
-branches:
-  only:
-  - master
-  - sonarqube-v7
-  - sonarqube-v8
-  - sonarqube-v9
+jdk: openjdk11
+after_success:
+  - mvn clean test jacoco:report coveralls:report
