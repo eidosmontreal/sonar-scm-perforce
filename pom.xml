@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sonarsource.scm.perforce</groupId>
 	<artifactId>sonar-scm-perforce-plugin</artifactId>
-	<version>9.0-sqex-SNAPSHOT</version>
+	<version>9.0-sqex</version>
 
 	<properties>
 		<version.sonarqube>9.2.1.49989</version.sonarqube>
