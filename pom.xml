@@ -64,7 +64,7 @@
 			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-plugin-api-impl</artifactId>
 			<version>${version.sonarqube}</version>
-			<scope>provided</scope>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.perforce</groupId>
@@ -110,17 +110,24 @@
 			<scope>test</scope>
 		</dependency>
 
-	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>jcl-over-slf4j</artifactId>
-		<version>1.7.32</version>
-		<!-- Jul 20, 2021 -->
-	</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.32</version>
+			<!-- Jul 20, 2021 -->
+		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>3.1.0</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
+			<!-- Mar 02, 2021 -->
 		</dependency>
 	</dependencies>
 

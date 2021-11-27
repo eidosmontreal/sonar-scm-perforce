@@ -36,9 +36,9 @@ import com.perforce.p4java.option.server.TrustOptions;
 import com.perforce.p4java.server.IOptionsServer;
 import com.perforce.p4java.server.ServerFactory;
 import com.perforce.p4java.server.callback.ICommandCallback;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.api.utils.MessageException;
 
 import javax.annotation.Nonnull;
