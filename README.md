@@ -1,7 +1,7 @@
 ![Support](https://img.shields.io/badge/Support-Best%20Effort-yellow.svg)
 
 # SonarQube Perforce plugin
-[![Build Status](https://api.travis-ci.org/eidosmontreal/sonar-scm-perforce.svg?branch=sonarqube-v8)](https://travis-ci.org/eidosmontreal/sonar-scm-perforce)
+[![Build Status](https://api.travis-ci.com/eidosmontreal/sonar-scm-perforce.svg?branch=sonarqube-v8)](https://app.travis-ci.com/github/eidosmontreal/sonar-scm-perforce)
 
 ## Description
 This plugin implements SCM dependent features of SonarQube for [Perforce](http://www.perforce.com/) projects. It's a pure Java implementation so no need to have p4 command line tool installed on the computer doing the SQ analysis.
