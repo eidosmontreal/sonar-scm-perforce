@@ -23,8 +23,6 @@ import org.sonar.api.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public final class PerforcePlugin implements Plugin {
 
@@ -35,11 +33,11 @@ public final class PerforcePlugin implements Plugin {
 
   public List getExtensions() {
     List result = new ArrayList();
-    result.addAll(Stream.of(
+    result.addAll(List.of(
             PerforceScmProvider.class,
             PerforceBlameCommand.class,
             PerforceConfiguration.class,
-            PerforceExecutor.class).collect(Collectors.toList()));
+            PerforceExecutor.class));
     result.addAll(PerforceConfiguration.getProperties());
     return result;
   }
