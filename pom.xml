@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sonarsource.scm.perforce</groupId>
 	<artifactId>sonar-scm-perforce-plugin</artifactId>
-	<version>7.2-sqex</version>
+	<version>7.3-sqex-SNAPSHOT</version>
 
 	<!-- this is important for sonar-packaging-maven-plugin -->
 	<packaging>sonar-plugin</packaging>
