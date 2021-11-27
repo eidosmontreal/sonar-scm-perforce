@@ -8,6 +8,7 @@
 	<version>9.0-sqex</version>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.sonarqube>9.2.1.49989</version.sonarqube>
 		<!-- Nov 26, 2021 -->
 	</properties>
