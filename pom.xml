@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sonarsource.scm.perforce</groupId>
 	<artifactId>sonar-scm-perforce-plugin</artifactId>
-	<version>8.1-sqex</version>
+	<version>8.2-sqex-SNAPSHOT</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
