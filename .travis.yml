@@ -1,16 +1,4 @@
 language: java
-sudo: false
-install: true
-
-jdk:
-  - oraclejdk7
-
-script:
-  - mvn verify -B -e -V
-
-cache:
-  directories:
-    - $HOME/.m2/repository
-
-notifications:
-  email: false
+jdk: openjdk11
+after_success:
+  - mvn clean test jacoco:report coveralls:report
