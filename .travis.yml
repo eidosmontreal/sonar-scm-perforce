@@ -16,7 +16,7 @@ jobs:
     # 1.2 Coverage
     - stage: test
       jdk: openjdk11
-      script: mvn jacoco:prepare-agent verify jacoco:report coveralls:report
+      script: mvn org.jacoco:jacoco-maven-plugin:0.8.7:prepare-agent verify org.jacoco:jacoco-maven-plugin:0.8.7:report coveralls:report
       env: COVERAGE=true
 
     # 1.3 Javadoc
