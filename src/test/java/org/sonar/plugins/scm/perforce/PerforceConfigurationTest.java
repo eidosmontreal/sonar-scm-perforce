@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.sonar.api.config.PropertyDefinitions;
 import org.sonar.api.config.internal.ConfigurationBridge;
 import org.sonar.api.config.internal.MapSettings;
+import org.sonar.api.utils.System2;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,7 +33,8 @@ public class PerforceConfigurationTest {
 
   @Test
   public void checkDefaultValues() {
-    MapSettings settings = new MapSettings(new PropertyDefinitions(PerforceConfiguration.getProperties()));
+    PropertyDefinitions definitions = new PropertyDefinitions(System2.INSTANCE, PerforceConfiguration.getProperties());
+    MapSettings settings = new MapSettings(definitions);
 
 
     ConfigurationBridge bridge = new ConfigurationBridge(settings);

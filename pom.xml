@@ -5,7 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sonarsource.scm.perforce</groupId>
 	<artifactId>sonar-scm-perforce-plugin</artifactId>
-	<version>7.3-sqex-SNAPSHOT</version>
+	<version>8.0-sqex-SNAPSHOT</version>
+
+	<properties>
+		<version.sonarqube>8.9.3.48735</version.sonarqube>
+		<!-- Oct 27, 2021 -->
+	</properties>
 
 	<!-- this is important for sonar-packaging-maven-plugin -->
 	<packaging>sonar-plugin</packaging>
@@ -51,9 +56,14 @@
 		<dependency>
 			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-plugin-api</artifactId>
-			<version>7.9.6</version>
+			<version>${version.sonarqube}</version>
 			<scope>provided</scope>
-			<!-- Mar 02, 2021 -->
+		</dependency>
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-plugin-api-impl</artifactId>
+			<version>${version.sonarqube}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.perforce</groupId>

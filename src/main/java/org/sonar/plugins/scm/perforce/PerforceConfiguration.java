@@ -24,12 +24,13 @@ import org.sonar.api.CoreProperties;
 import org.sonar.api.PropertyType;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.config.PropertyDefinition;
-import org.sonar.api.internal.google.common.collect.ImmutableList;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.api.scanner.ScannerSide;
 
 import javax.annotation.CheckForNull;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @ScannerSide
 public class PerforceConfiguration {
@@ -54,7 +55,7 @@ public class PerforceConfiguration {
   }
 
   public static List<PropertyDefinition> getProperties() {
-    return ImmutableList.of(
+    return Stream.of(
             PropertyDefinition.builder(PORT_PROP_KEY)
                     .name("Perforce service port")
                     .description("The host and port number of the Perforce service with which to communicate. Format is host:port.")
@@ -138,7 +139,7 @@ public class PerforceConfiguration {
                     .category(CoreProperties.CATEGORY_SCM)
                     .subCategory(CATEGORY_PERFORCE)
                     .index(8)
-                    .build());
+                    .build()).collect(Collectors.toList());
   }
 
   @CheckForNull
