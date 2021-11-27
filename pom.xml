@@ -39,19 +39,19 @@
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:git@github.com:SonarQubeCommunity/sonar-scm-perforce.git</connection>
-		<developerConnection>scm:git:git@github.com:SonarQubeCommunity/sonar-scm-perforce.git</developerConnection>
-		<url>https://github.com/SonarQubeCommunity/sonar-scm-perforce</url>
+		<connection>scm:git:git@github.com:eidosmontreal/sonar-scm-perforce.git</connection>
+		<developerConnection>scm:git:git@github.com:eidosmontreal/sonar-scm-perforce.git</developerConnection>
+		<url>https://github.com/eidosmontreal/sonar-scm-perforce</url>
 		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/SonarQubeCommunity/sonar-scm-perforce/issues</url>
+		<url>https://github.com/eidosmontreal/sonar-scm-perforce/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>Travis</system>
-		<url>https://travis-ci.org/SonarQubeCommunity/sonar-scm-perforce</url>
+		<url>https://travis-ci.com/github/eidosmontreal/sonar-scm-perforce</url>
 	</ciManagement>
 	<dependencies>
 		<dependency>
