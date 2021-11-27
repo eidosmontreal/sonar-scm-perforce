@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sonarsource.scm.perforce</groupId>
 	<artifactId>sonar-scm-perforce-plugin</artifactId>
-	<version>7.2-sqex-SNAPSHOT</version>
+	<version>7.2-sqex</version>
 
 	<!-- this is important for sonar-packaging-maven-plugin -->
 	<packaging>sonar-plugin</packaging>
@@ -121,8 +121,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<source>11</source>
-					<target>11</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
