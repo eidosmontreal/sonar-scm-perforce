@@ -97,11 +97,11 @@ public class PerforceBlameCommand extends BlameCommand {
 
   private List<Future<Void>> submitTasks(ExecutorService executorService, IOptionsServer server, BlameInput input, BlameOutput output) {
     List<Future<Void>> tasks = new ArrayList<>();
-      for (InputFile inputFile : input.filesToBlame()) {
+    for (InputFile inputFile : input.filesToBlame()) {
       tasks.add(submitTask(executorService, server, inputFile, output));
     }
     return tasks;
-      }
+  }
 
   private Future<Void> submitTask(ExecutorService executorService, final IOptionsServer server, final InputFile inputFile, final BlameOutput output) {
     return executorService.submit(() -> tryBlame(inputFile, server, output));
@@ -173,7 +173,7 @@ public class PerforceBlameCommand extends BlameCommand {
    * Compute blame, getting changelist from server if not already retrieved
    */
   private List<BlameLine> computeBlame(InputFile inputFile, IOptionsServer server, List<IFileAnnotation> fileAnnotations, boolean handleCrlf)
-    throws ConnectionException, RequestException, AccessException {
+          throws ConnectionException, RequestException, AccessException {
     List<BlameLine> lines = new ArrayList<>();
     for (int i = 0; i < fileAnnotations.size(); i++) {
       IFileAnnotation fileAnnotation = fileAnnotations.get(i);
@@ -190,9 +190,9 @@ public class PerforceBlameCommand extends BlameCommand {
         // We really couldn't get any information for this changelist!
         // Unfortunately, blame information is required for every line...
         blameLine = new BlameLine()
-          .revision(defaultString(config.swarm()) + lowerChangelistId)
-          .date(new Date(0))
-          .author("unknown");
+                .revision(defaultString(config.swarm()) + lowerChangelistId)
+                .date(new Date(0))
+                .author("unknown");
       }
 
       lines.add(blameLine);
@@ -212,7 +212,7 @@ public class PerforceBlameCommand extends BlameCommand {
 
   @CheckForNull
   private BlameLine blameLineFromChangeListDetails(IOptionsServer server, int changelistId)
-    throws ConnectionException, RequestException, AccessException {
+          throws ConnectionException, RequestException, AccessException {
     IChangelist changelist = changelistCache.get(changelistId);
     if (changelist == null) {
       changelist = server.getChangelist(changelistId);
@@ -224,9 +224,9 @@ public class PerforceBlameCommand extends BlameCommand {
 
     if (changelist != null) {
       return new BlameLine()
-        .revision(defaultString(config.swarm()) + changelistId)
-        .date(changelist.getDate())
-        .author(changelist.getUsername());
+              .revision(defaultString(config.swarm()) + changelistId)
+              .date(changelist.getDate())
+              .author(changelist.getUsername());
     }
     return null;
   }
@@ -236,16 +236,16 @@ public class PerforceBlameCommand extends BlameCommand {
     IFileRevisionData data = revisionDataByChangelistId.get(changelistId);
     if (data != null) {
       return new BlameLine()
-        .revision(defaultString(config.swarm()) + changelistId)
-        .date(data.getDate())
-        .author(data.getUserName());
+              .revision(defaultString(config.swarm()) + changelistId)
+              .date(data.getDate())
+              .author(data.getUserName());
     }
     return null;
   }
 
   /**
    * Creating options for file annotation command.
-
+   *
    * @return options for requests.
    */
   @Nonnull
@@ -274,7 +274,7 @@ public class PerforceBlameCommand extends BlameCommand {
   /**
    * Creates file spec for the specified file taking into an account that we are interested in a revision that we have
    * in the current client workspace.
-
+   *
    * @param inputFile file to create file spec for
    */
   @Nonnull
@@ -284,9 +284,5 @@ public class PerforceBlameCommand extends BlameCommand {
     fileSpec.setEndRevision(IFileSpec.HAVE_REVISION);
     return fileSpec;
   }
-
-
-
-
 
 }

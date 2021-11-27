@@ -27,28 +27,20 @@ import java.util.List;
 
 public final class PerforcePlugin implements Plugin {
 
+  @Override
+  public void define(Context context) {
+    context.addExtensions(getExtensions());
+  }
 
-
-
-
-    @Override
-	public void define(Context context) {
-		context.addExtensions(getExtensions());
-
-	}
-
-
-
-
-    public List getExtensions() {
-	List result = new ArrayList();
+  public List getExtensions() {
+    List result = new ArrayList();
     result.addAll(ImmutableList.of(
-      PerforceScmProvider.class,
-      PerforceBlameCommand.class,
-      PerforceConfiguration.class,
-      PerforceExecutor.class));
-	result.addAll(PerforceConfiguration.getProperties());
-	return result;
-    }
+            PerforceScmProvider.class,
+            PerforceBlameCommand.class,
+            PerforceConfiguration.class,
+            PerforceExecutor.class));
+    result.addAll(PerforceConfiguration.getProperties());
+    return result;
+  }
 
 }

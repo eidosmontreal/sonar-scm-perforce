@@ -22,7 +22,6 @@ package org.sonar.plugins.scm.perforce;
 
 import org.junit.Test;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PerforcePluginTest {
@@ -31,4 +30,5 @@ public class PerforcePluginTest {
   public void getExtensions() {
     assertThat(new PerforcePlugin().getExtensions()).hasSize(13);
   }
+
 }

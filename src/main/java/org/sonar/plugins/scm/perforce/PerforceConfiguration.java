@@ -20,8 +20,6 @@
 package org.sonar.plugins.scm.perforce;
 
 import com.perforce.p4java.impl.mapbased.rpc.RpcPropertyDefs;
-
-
 import org.sonar.api.CoreProperties;
 import org.sonar.api.PropertyType;
 import org.sonar.api.config.Configuration;
@@ -30,9 +28,7 @@ import org.sonar.api.internal.google.common.collect.ImmutableList;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.api.scanner.ScannerSide;
 
-
 import javax.annotation.CheckForNull;
-
 import java.util.List;
 
 @ScannerSide
@@ -59,90 +55,90 @@ public class PerforceConfiguration {
 
   public static List<PropertyDefinition> getProperties() {
     return ImmutableList.of(
-      PropertyDefinition.builder(PORT_PROP_KEY)
-        .name("Perforce service port")
-        .description("The host and port number of the Perforce service with which to communicate. Format is host:port.")
-        .type(PropertyType.STRING)
-        .onQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(0)
-        .build(),
-      PropertyDefinition.builder(USER_PROP_KEY)
-        .name("Username")
-        .description("Username to be used for Perforce authentication")
-        .type(PropertyType.STRING)
-        .onQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(1)
-        .build(),
-      PropertyDefinition.builder(PASSWORD_PROP_KEY)
-        .name("Password")
-        .description("Password to be used for Perforce authentication")
-        .type(PropertyType.PASSWORD)
-        .onQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(2)
-        .build(),
-      PropertyDefinition.builder(CLIENT_PROP_KEY)
-        .name("Client workspace name")
-        .description("Name of the workspace the project belongs to")
-        .type(PropertyType.STRING)
-        .onlyOnQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(3)
-        .build(),
-      PropertyDefinition.builder(CLIENT_IMPERSONATED_HOST_PROP_KEY)
-        .name("Client impersonated hostname")
-        .description("Name of the host computer to impersonate, per the <a href=\"https://www.perforce.com/perforce/r15.1/manuals/cmdref/P4HOST.html\">Perforce documentation</a>")
-        .type(PropertyType.STRING)
-        .onlyOnQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(4)
-        .build(),
-      PropertyDefinition.builder(USESSL_PROP_KEY)
-        .name("Use SSL")
-        .description("Use SSL protocol (p4javassl://) to connect to server")
-        .type(PropertyType.BOOLEAN)
-        .defaultValue(FALSE)
-        .onQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(5)
-        .build(),
-      PropertyDefinition.builder(CHARSET_PROP_KEY)
-        .name("Perforce charset")
-        .description("Character set used for translation of unicode files (P4CHARSET)")
-        .type(PropertyType.STRING)
-        .onQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(6)
-        .build(),
-      PropertyDefinition.builder(SOCKSOTIMEOUT_PROP_KEY)
-        .name("Perforce socket read timeout")
-        .description("Sets the socket read timeout for communicating with the Perforce service (milliseconds)")
-        .type(PropertyType.INTEGER)
-        .defaultValue(String.valueOf(RpcPropertyDefs.RPC_SOCKET_SO_TIMEOUT_DEFAULT))
-        .onQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(7)
-        .build(),
-      PropertyDefinition.builder(SWARM_PROP_KEY)
-        .name("Perforce swarm url")
-        .description("The full url of your swarm or p4view browser, eg http://swarm.yourcompany.com/")
-        .type(PropertyType.STRING)
-        .defaultValue(SWARM_DEFAULT_KEY)
-        .onQualifiers(Qualifiers.PROJECT)
-        .category(CoreProperties.CATEGORY_SCM)
-        .subCategory(CATEGORY_PERFORCE)
-        .index(8)
-        .build());
+            PropertyDefinition.builder(PORT_PROP_KEY)
+                    .name("Perforce service port")
+                    .description("The host and port number of the Perforce service with which to communicate. Format is host:port.")
+                    .type(PropertyType.STRING)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(0)
+                    .build(),
+            PropertyDefinition.builder(USER_PROP_KEY)
+                    .name("Username")
+                    .description("Username to be used for Perforce authentication")
+                    .type(PropertyType.STRING)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(1)
+                    .build(),
+            PropertyDefinition.builder(PASSWORD_PROP_KEY)
+                    .name("Password")
+                    .description("Password to be used for Perforce authentication")
+                    .type(PropertyType.PASSWORD)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(2)
+                    .build(),
+            PropertyDefinition.builder(CLIENT_PROP_KEY)
+                    .name("Client workspace name")
+                    .description("Name of the workspace the project belongs to")
+                    .type(PropertyType.STRING)
+                    .onlyOnQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(3)
+                    .build(),
+            PropertyDefinition.builder(CLIENT_IMPERSONATED_HOST_PROP_KEY)
+                    .name("Client impersonated hostname")
+                    .description("Name of the host computer to impersonate, per the <a href=\"https://www.perforce.com/perforce/r15.1/manuals/cmdref/P4HOST.html\">Perforce documentation</a>")
+                    .type(PropertyType.STRING)
+                    .onlyOnQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(4)
+                    .build(),
+            PropertyDefinition.builder(USESSL_PROP_KEY)
+                    .name("Use SSL")
+                    .description("Use SSL protocol (p4javassl://) to connect to server")
+                    .type(PropertyType.BOOLEAN)
+                    .defaultValue(FALSE)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(5)
+                    .build(),
+            PropertyDefinition.builder(CHARSET_PROP_KEY)
+                    .name("Perforce charset")
+                    .description("Character set used for translation of unicode files (P4CHARSET)")
+                    .type(PropertyType.STRING)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(6)
+                    .build(),
+            PropertyDefinition.builder(SOCKSOTIMEOUT_PROP_KEY)
+                    .name("Perforce socket read timeout")
+                    .description("Sets the socket read timeout for communicating with the Perforce service (milliseconds)")
+                    .type(PropertyType.INTEGER)
+                    .defaultValue(String.valueOf(RpcPropertyDefs.RPC_SOCKET_SO_TIMEOUT_DEFAULT))
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(7)
+                    .build(),
+            PropertyDefinition.builder(SWARM_PROP_KEY)
+                    .name("Perforce swarm url")
+                    .description("The full url of your swarm or p4view browser, eg http://swarm.yourcompany.com/")
+                    .type(PropertyType.STRING)
+                    .defaultValue(SWARM_DEFAULT_KEY)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(8)
+                    .build());
   }
 
   @CheckForNull
@@ -182,8 +178,10 @@ public class PerforceConfiguration {
   public Integer sockSoTimeout() {
     return settings.getInt(SOCKSOTIMEOUT_PROP_KEY).orElse(null);
   }
+
   @CheckForNull
   public String swarm() {
     return settings.get(SWARM_PROP_KEY).orElse(null);
   }
+
 }

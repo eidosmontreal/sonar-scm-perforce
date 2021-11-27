@@ -56,21 +56,21 @@ import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 public class PerforceBlameCommandTest {
 
-    @Test
-    public void testBlameUnSubmittedFile() throws Exception {
-      BlameOutput blameOutput = mock(BlameOutput.class);
-      IOptionsServer server = mock(IOptionsServer.class);
-      PerforceBlameCommand command = new PerforceBlameCommand(mock(PerforceConfiguration.class));
+  @Test
+  public void testBlameUnSubmittedFile() throws Exception {
+    BlameOutput blameOutput = mock(BlameOutput.class);
+    IOptionsServer server = mock(IOptionsServer.class);
+    PerforceBlameCommand command = new PerforceBlameCommand(mock(PerforceConfiguration.class));
 
-      IFileAnnotation annotation = mock(IFileAnnotation.class);
-      when(annotation.getDepotPath()).thenReturn(null);
+    IFileAnnotation annotation = mock(IFileAnnotation.class);
+    when(annotation.getDepotPath()).thenReturn(null);
 
     when(server.getFileAnnotations(anyList(), any(GetFileAnnotationsOptions.class))).thenReturn(Collections.singletonList(annotation));
 
-      command.blame(mock(InputFile.class), server, blameOutput);
+    command.blame(mock(InputFile.class), server, blameOutput);
 
     verifyNoInteractions(blameOutput);
-    }
+  }
 
   @Test
   public void testBlameSubmittedFile() throws Exception {
@@ -120,11 +120,11 @@ public class PerforceBlameCommandTest {
     when(revision3.getDate()).thenReturn(date);
     when(revision3.getUserName()).thenReturn("jhenry");
     result.put(fileSpecResult, Collections.singletonList(revision3));
-    
+
     when(server.getRevisionHistory(anyList(), any(GetRevisionHistoryOptions.class))).thenReturn(result);
     when(server.getFileAnnotations(anyList(), any(GetFileAnnotationsOptions.class)))
 
-      .thenReturn(Arrays.asList(line1ChangeList3, line2ChangeList3, line3ChangeList4, line4ChangeList5, line5ChangeList4));
+            .thenReturn(Arrays.asList(line1ChangeList3, line2ChangeList3, line3ChangeList4, line4ChangeList5, line5ChangeList4));
 
     IChangelist changelist = mock(IChangelist.class);
     when(changelist.getDate()).thenReturn(date);
@@ -197,9 +197,9 @@ public class PerforceBlameCommandTest {
     InputFile inputFile = mock(InputFile.class);
     PerforceBlameCommand command = new PerforceBlameCommand(mock(PerforceConfiguration.class));
     when(server.getFileAnnotations(anyList(), argThat(isFollowIntegrations(true))))
-      .thenThrow(new P4JavaException());
+            .thenThrow(new P4JavaException());
     when(server.getFileAnnotations(anyList(), argThat(isFollowIntegrations(false))))
-      .thenReturn(Collections.<IFileAnnotation>emptyList());
+            .thenReturn(Collections.emptyList());
     command.tryBlame(inputFile, server, blameOutput);
   }
 
@@ -208,7 +208,7 @@ public class PerforceBlameCommandTest {
       @Override
       public boolean matches(Object o) {
         return o instanceof GetFileAnnotationsOptions
-            && ((GetFileAnnotationsOptions) o).isFollowAllIntegrations() == follow;
+                && ((GetFileAnnotationsOptions) o).isFollowAllIntegrations() == follow;
       }
 
       @Override
@@ -217,4 +217,5 @@ public class PerforceBlameCommandTest {
       }
     };
   }
+
 }

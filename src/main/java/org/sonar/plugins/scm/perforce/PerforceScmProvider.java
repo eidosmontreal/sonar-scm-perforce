@@ -39,4 +39,5 @@ public class PerforceScmProvider extends ScmProvider {
   public BlameCommand blameCommand() {
     return this.blameCommand;
   }
+
 }

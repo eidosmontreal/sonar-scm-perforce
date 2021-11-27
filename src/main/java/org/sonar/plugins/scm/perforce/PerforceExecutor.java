@@ -20,18 +20,6 @@
 package org.sonar.plugins.scm.perforce;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 import com.perforce.p4java.client.IClient;
 import com.perforce.p4java.client.IClientViewMapping;
 import com.perforce.p4java.core.file.FileSpecBuilder;
@@ -48,25 +36,30 @@ import com.perforce.p4java.option.server.TrustOptions;
 import com.perforce.p4java.server.IOptionsServer;
 import com.perforce.p4java.server.ServerFactory;
 import com.perforce.p4java.server.callback.ICommandCallback;
-import java.io.File;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Properties;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.api.utils.MessageException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Properties;
+
 public class PerforceExecutor {
 
   private static final Logger LOG = LoggerFactory.getLogger(PerforceExecutor.class);
 
-  /** Perforce server. */
+  /**
+   * Perforce server.
+   */
   private IOptionsServer server;
 
-  /** Perforce client. */
+  /**
+   * Perforce client.
+   */
   private IClient client;
 
   private final PerforceConfiguration config;
@@ -74,10 +67,8 @@ public class PerforceExecutor {
   /**
    * Instantiates a new p4 command helper.
    *
-   * @param config
-   *            the plugin configuration
-   * @param workDir
-   *            the working directory
+   * @param config  the plugin configuration
+   * @param workDir the working directory
    */
   public PerforceExecutor(PerforceConfiguration config, File workDir) {
     this.config = config;
@@ -95,7 +86,6 @@ public class PerforceExecutor {
 
   /**
    * Initialize Perforce server and client instances.
-   *
    */
   protected void init(File workDir) {
     // Initialize the Perforce server.
@@ -106,7 +96,6 @@ public class PerforceExecutor {
 
   /**
    * Cleanup Perforce server and client instances; logout, disconnect, etc.
-   *
    */
   public void clean() {
     // Cleanup the Perforce server.
@@ -119,7 +108,6 @@ public class PerforceExecutor {
    * options. Register callback on the server. Connect to server; set the user
    * (if present) to server and login to the server with the user's password
    * (if present).
-   *
    */
   private void initServer() {
 
@@ -222,9 +210,8 @@ public class PerforceExecutor {
   /**
    * Cleanup the Perforce server instance. Disconnect from the Perforce
    * server. Also, set the server to null.
-   *
+   * <p>
    * Note: It does not logout, because that will delete the user's ticket.
-   *
    */
   private void cleanServer() {
     try {
@@ -238,7 +225,6 @@ public class PerforceExecutor {
   /**
    * Initialize an instance of the Perforce client from the server with a
    * specified client name. Set the current client on the server.
-   *
    */
   private void initClient(File workDir) {
 
@@ -267,7 +253,7 @@ public class PerforceExecutor {
       if (list != null) {
         for (IClientViewMapping map : list) {
           if (map.getDepotSpec().equals(clientViewMapping.getDepotSpec())
-            && map.getClient().equals(clientViewMapping.getClient())) {
+                  && map.getClient().equals(clientViewMapping.getClient())) {
             exists = true;
             break;
           }
@@ -291,10 +277,8 @@ public class PerforceExecutor {
   /**
    * Creates the client view mapping.
    *
-   * @param basedir
-   *            the basedir
-   * @param p4ClientName
-   *            the Perforce client name
+   * @param basedir      the basedir
+   * @param p4ClientName the Perforce client name
    * @return the client view mapping
    */
   private ClientViewMapping createClientViewMapping(File basedir, String p4ClientName) {
@@ -307,8 +291,7 @@ public class PerforceExecutor {
   /**
    * Gets the repo location.
    *
-   * @param path
-   *            the path
+   * @param path the path
    * @return the repo location
    */
   @Nullable
@@ -333,8 +316,7 @@ public class PerforceExecutor {
   /**
    * Gets the canonical repo path.
    *
-   * @param repoPath
-   *            the repo path
+   * @param repoPath the repo path
    * @return the canonical repo path
    */
   @Nullable
