@@ -279,7 +279,7 @@ public class PerforceBlameCommand extends BlameCommand {
    */
   @Nonnull
   private static IFileSpec createFileSpec(@Nonnull InputFile inputFile) {
-    IFileSpec fileSpec = new FileSpec(PerforceExecutor.encodeWildcards(inputFile.filename()));
+    IFileSpec fileSpec = new FileSpec(PerforceExecutor.encodeWildcards(inputFile.absolutePath()));
 
     fileSpec.setEndRevision(IFileSpec.HAVE_REVISION);
     return fileSpec;
