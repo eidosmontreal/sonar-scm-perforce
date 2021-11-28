@@ -20,10 +20,11 @@
 package org.sonar.plugins.scm.perforce;
 
 import org.sonar.api.Plugin;
-import org.sonar.api.internal.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class PerforcePlugin implements Plugin {
 
@@ -34,11 +35,11 @@ public final class PerforcePlugin implements Plugin {
 
   public List getExtensions() {
     List result = new ArrayList();
-    result.addAll(ImmutableList.of(
+    result.addAll(Stream.of(
             PerforceScmProvider.class,
             PerforceBlameCommand.class,
             PerforceConfiguration.class,
-            PerforceExecutor.class));
+            PerforceExecutor.class).collect(Collectors.toList()));
     result.addAll(PerforceConfiguration.getProperties());
     return result;
   }
