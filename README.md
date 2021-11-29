@@ -30,7 +30,6 @@ sonar.perforce.swarm | The full url of your swarm or p4view browser, eg (http://
 
 ## Known Limitations
 * No auto-detection since nothing in workspace seems to show this is under Perforce control management (like .git folder for Git workspace).
-* Blame is not executed in parallel since we are not confident in the thread safety of p4java library.
 
 ## Developer information
-The plugin uses the p4java pure Java implementation of Perforce client: http://www.perforce.com/perforce/doc.current/manuals/p4java/01_p4java.html
+The plugin uses the p4java pure Java implementation of Perforce client: https://www.perforce.com/manuals/p4java/Content/P4Java/chapter.p4java.html
