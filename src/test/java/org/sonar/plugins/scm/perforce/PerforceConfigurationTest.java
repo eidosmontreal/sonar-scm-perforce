@@ -42,6 +42,7 @@ public class PerforceConfigurationTest {
     assertThat(config.charset()).isNull();
     assertThat(config.clientName()).isNull();
     assertThat(config.clientImpersonatedHostname()).isNull();
+    assertThat(config.workingDirectory()).isNull();
     assertThat(config.port()).isNull();
     assertThat(config.username()).isNull();
     assertThat(config.password()).isNull();
