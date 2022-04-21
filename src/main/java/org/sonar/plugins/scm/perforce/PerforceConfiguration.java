@@ -41,6 +41,8 @@ public class PerforceConfiguration {
   private static final String PASSWORD_PROP_KEY = "sonar.perforce.password.secured";
   static final String CLIENT_PROP_KEY = "sonar.perforce.clientName";
   private static final String CLIENT_IMPERSONATED_HOST_PROP_KEY = "sonar.perforce.clientImpersonatedHostname";
+  private static final String WORKING_DIRECTORY_PROP_KEY = "sonar.perforce.workingDirectory";
+  private static final String WORKING_DIRECTORY_DEFAULT_KEY = "";
   private static final String CHARSET_PROP_KEY = "sonar.perforce.charset";
   private static final String SOCKSOTIMEOUT_PROP_KEY = "sonar.perforce.sockSoTimeout";
   static final String SWARM_PROP_KEY = "sonar.perforce.swarm";
@@ -137,6 +139,16 @@ public class PerforceConfiguration {
                     .category(CoreProperties.CATEGORY_SCM)
                     .subCategory(CATEGORY_PERFORCE)
                     .index(8)
+                    .build(),
+            PropertyDefinition.builder(WORKING_DIRECTORY_PROP_KEY)
+                    .name("The perforce working directory (-d option)")
+                    .description("The path to your source files. Leave blank to use the one defined in the p4 workspace definition")
+                    .type(PropertyType.STRING)
+                    .defaultValue(WORKING_DIRECTORY_DEFAULT_KEY)
+                    .onQualifiers(Qualifiers.PROJECT)
+                    .category(CoreProperties.CATEGORY_SCM)
+                    .subCategory(CATEGORY_PERFORCE)
+                    .index(9)
                     .build());
   }
 
@@ -172,6 +184,11 @@ public class PerforceConfiguration {
   @CheckForNull
   public String clientImpersonatedHostname() {
     return settings.get(CLIENT_IMPERSONATED_HOST_PROP_KEY).orElse(null);
+  }
+
+  @CheckForNull
+  public String workingDirectory() {
+    return settings.get(WORKING_DIRECTORY_PROP_KEY).orElse(null);
   }
 
   public Integer sockSoTimeout() {

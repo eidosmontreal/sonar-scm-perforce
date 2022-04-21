@@ -166,6 +166,11 @@ public class PerforceExecutor {
     UsageOptions usageOptions = new UsageOptions(null);
     // Param is nullable
     usageOptions.setHostName(config.clientImpersonatedHostname());
+    String workingDirectory = config.workingDirectory();
+
+    if (StringUtils.isNotBlank(workingDirectory)) {
+      usageOptions.setWorkingDirectory(config.workingDirectory());
+    }
 
     if (config.useSsl()) {
       server = ServerFactory.getOptionsServer("p4javassl://" + config.port(), props, usageOptions);
